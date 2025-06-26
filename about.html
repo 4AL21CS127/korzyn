@@ -114,10 +114,6 @@
             transform: scale(1.05);  /* Just a 5% zoom */
         }
         
-
-
-        
-
         .nav-links {
             display: flex;
             gap: 35px;
@@ -176,6 +172,7 @@
             text-decoration: none;
             transition: all 0.3s;
             margin-left: auto;
+            font-size: 15px;
         }
 
         .contact-btn:hover {
@@ -603,7 +600,9 @@
             }
 
             .contact-btn {
-                margin-left: 0;
+                 padding: 8px 16px; /* Smaller on mobile */
+                 font-size: 14px;
+                  margin-left: auto; /* Aligns properly with hamburger */
             }
 
             .hamburger {
