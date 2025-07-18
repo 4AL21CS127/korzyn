@@ -692,12 +692,11 @@
         .service-detail {
             scroll-margin-top: 100px; /* Adjust based on your navbar height */
         }
-            .nav-links a.active {
-            border-bottom: 2px solid #007bff; /* Add your custom color if needed */
-            color: #007bff;
+         .nav-links a.active {
+            color: var(--primary);
         }
         .nav-links a {
-            transition: border-bottom 0.3s ease, color 0.3s ease;
+            transition: color 0.3s ease;
         }
     </style>
 </head>
@@ -857,20 +856,38 @@
         navLinks.classList.toggle('active');
     });
 
-    // ACTIVE NAV LINK HIGHLIGHTING
-    document.addEventListener("DOMContentLoaded", function () {
-        let currentPath = window.location.pathname.toLowerCase();
-        if (currentPath === "/") currentPath = "/index";
-
-        document.querySelectorAll(".nav-links a").forEach(link => {
-            let href = link.getAttribute("href").toLowerCase().replace(".html", "");
-            if (!href.startsWith("/")) href = "/" + href;
-
-            if (href === currentPath) {
-                link.classList.add("active");
-            }
-        });
+   // ACTIVE NAV LINK HIGHLIGHTING
+document.addEventListener("DOMContentLoaded", function () {
+    // Get current page path (handles both /about and /about.html cases)
+    let currentPath = window.location.pathname.toLowerCase();
+    
+    // Remove .html extension if present
+    currentPath = currentPath.replace('.html', '');
+    
+    // Handle home page case
+    if (currentPath === '/' || currentPath === '/index') {
+        currentPath = '/index';
+    }
+    
+    document.querySelectorAll(".nav-links a").forEach(link => {
+        // Get link path and remove .html extension
+        let href = link.getAttribute("href").toLowerCase().replace('.html', '');
+        
+        // Add leading slash if not present
+        if (!href.startsWith("/")) {
+            href = "/" + href;
+        }
+        
+        // Special case for home page link
+        if (href === "/index" && currentPath === "/index") {
+            link.classList.add("active");
+        } 
+        // Match other pages
+        else if (href !== "/index" && currentPath.includes(href)) {
+            link.classList.add("active");
+        }
     });
+});
 
     // SCROLL ANIMATIONS
     const animateOnScroll = () => {
